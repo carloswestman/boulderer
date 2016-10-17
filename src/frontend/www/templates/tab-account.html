@@ -1,0 +1,23 @@
+<ion-view view-title="Account">
+  <ion-content>    
+    <ion-list>
+        <ion-item class="item item-avatar" href="#">
+      <img ng-src="{{photoURL}}">
+      <h2>{{displayName}}</h2>
+      <p>{{email}}</p>
+    </ion-item>
+<!--
+    <ion-item class="item-profile">
+        <div class="item-avatar">
+            <img ng-src="{{photoURL}}">
+        </div>
+        {{displayName}}
+    </ion-item>     
+-->
+    </ion-list>
+    
+<!--    <button class="button button-full button-positive" ng-click="login()">Login with Facebook</button>  -->
+    <a class="facebook-sign-in button button-block" ng-click="facebookSignIn()">Login with Facebook</a> 
+    <a class="button button-assertive button-block button-outline" ng-click="showLogOutMenu()">Log Out</a>
+  </ion-content>
+</ion-view>

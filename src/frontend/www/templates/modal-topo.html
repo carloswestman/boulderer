@@ -1,0 +1,24 @@
+<ion-modal-view>
+      <ion-header-bar>
+        <button class="button button-clear icon ion-chevron-left" ng-click="closeModal()"></button> 
+        <h1 class = "title">{{topo.name}}</h1>
+<!--        <button class="button button-clear icon ion-hammer" ng-click="openPopover($event)"></button> -->
+
+      </ion-header-bar>
+	
+      <ion-content scroll="false" id="iontopocontentmodal" style="background-color:black;">
+<!--
+          <div>
+          <img id="modalTopoImage" style="opacity:.99; position:absolute; height:100%;"     ng-src="{{topo.picture}}" alt="Topo">
+          <svg id="modalTopoSvg" style="opacity:.99; position:absolute;"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  detect-gestures>
+          </div>
+-->
+<div id="bouldercontainer" style="position:relative;width:100%;border: 1px solid red;" ng-click="closeModal()">
+<img  id="modalTopoImage" style="display: block;opacity:.99;position:relative;top:0;left:0;width:100%;height:100%;" ng-src="{{topo.picture}}">
+<!--<svg id="modalTopoSvg" imageid="newModalTopoImage" setsize="true" mode="edit" viewBox="0 0 320 568" display="block" style="opacity:.99;position:absolute;top:0;left:0;width:100%;height:100%;border: 1px solid blue;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" detect-gestures class="disable-user-behavior">-->
+    <svg id="modalTopoSvg" imageid="modalTopoImage" setsize="false" mode="view" viewBox="0 0 320 568" display="block" style="opacity:.99;position:absolute;top:0;left:0;width:100%;height:100%;border: 1px solid blue;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" detect-gestures class="disable-user-behavior">
+</svg>
+</div>
+      </ion-content> 
+
+</ion-modal-view>

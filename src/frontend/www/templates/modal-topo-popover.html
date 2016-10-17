@@ -1,0 +1,17 @@
+<ion-popover-view>
+   <ion-header-bar>
+       <h1 class = "title">Tools</h1>
+   </ion-header-bar>
+
+   <ion-content>
+       <button class="button icon ion-edit" ng-class="{active:popoverSelection=='pencil'}" ng-click="popoverSelect('pencil');closePopover()">Pencil</button>
+       <button class="button icon ion-arrow-graph-up-right" ng-class="{active:popoverSelection=='spline'}" ng-click="popoverSelect('spline');closePopover()">Spline</button>
+       <button class="button icon ion-close" ng-class="{active:popoverSelection=='bolt'}"ng-click="popoverSelect('bolt');closePopover()">Bolt</button>
+       <button class="button icon ion-chatbox" ng-class="{active:popoverSelection=='text'}"ng-click="popoverSelect('text');closePopover()">Text</button>
+       <button class="button icon ion-android-alert" ng-class="{active:popoverSelection=='alert'}"ng-click="popoverSelect('alert');closePopover()">Alert</button>
+       <button class="button icon ion-android-warning" ng-class="{active:popoverSelection=='warning'}"ng-click="popoverSelect('warning');closePopover()">Warning</button>
+       <button class="button icon ion-close" ng-class="{active:popoverSelection=='route number'}"ng-click="popoverSelect('route number');closePopover()">Route Number</button>
+       <button class="button icon ion-android-arrow-down" ng-class="{active:popoverSelection=='rappel line'}"ng-click="popoverSelect('rappel line');closePopover()">Rappel line</button>
+       <button class="button icon ion-android-color-palette" ng-class="{active:popoverSelection=='color'}"ng-click="popoverSelect('color');closePopover()">Color</button>
+   </ion-content>
+</ion-popover-view>

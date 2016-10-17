@@ -1,0 +1,54 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view view-title="{{newtopo.name}}">
+    <ion-nav-buttons side="secondary">
+    <button class="button button-clear" ng-click="topo.picture = currentImageData; openNewModal()">Mark your holds</button>
+    </ion-nav-buttons>
+  <ion-content class="padding" > <!--ng-controller="NewTopoDetailCtrl">-->
+    <img id="myImage"  style="width: 70%">
+<!--
+      <ion-item>
+      <div id="container" style="position:relative;width:30%;">
+    <img display="block" id="myImage" style="opacity:.99;position:absolute;top:0;left:0;width:100%;">
+</div>
+      </ion-item>
+-->
+    <a class="button button-full icon ion-camera" ng-click="getPicture()"> Get Picture</a>
+    <a class="button button-full icon ion-ios-cloud-upload" ng-click="uploadBoulder()"> Upload Boulder</a>
+     <!-- <button class="button" ng-click="uploadPicture2()"> Upload Picture 2</button>-->
+    <div class="scroller"></div>   
+      <div id="newTopoDetail-markdown4" style="color:#000000;">
+            <p>The boulder grade is 
+                <strong>V{{newtopo.grade}}</strong>
+            </p>
+        </div>
+        <form id="searchOptions-form2" class="list">
+            <ion-item class="range range-positive" id="searchOptions-range1">Grade
+                <input type="range" value="0" min="0" max="16" ng-model="newtopo.grade">
+            </ion-item>
+        </form>
+      <p>
+<!--
+          <div id="newTopoDetail-markdown4" style="color:#000000;">
+            <p>This Boulder has  
+                <strong>{{newtopo.stars}} stars</strong>
+            </p>
+        </div>
+-->
+        <form id="searchOptions-form2" class="list">
+<!--
+            <ion-item class="range range-positive" id="searchOptions-range1">Stars
+                <input type="range" value="0" min="0" max="3" ng-model="newtopo.stars">
+            </ion-item>
+-->
+            <label class="item item-input" id="searchOptions-input1">
+                <span class="input-label">Name</span>
+                <input type="text" placeholder="Optional" ng-model="newtopo.name">
+            </label>
+        </form>
+  </ion-content>
+</ion-view>
