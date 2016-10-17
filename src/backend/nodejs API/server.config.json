@@ -1,0 +1,4 @@
+{
+  "id": "boulderer.api.server.config", 
+  "mongoConnectionString": "<<insert your Mongodb instance connection string here>>"
+}

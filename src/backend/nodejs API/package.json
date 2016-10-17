@@ -1,0 +1,19 @@
+{
+  "name": "boulderer-node-api",
+  "main": "server.js",
+  "dependencies": {
+    "express": "",
+    "mongoose": "",
+    "body-parser": "",
+    "gridfs-stream": "",
+    "method-override": ""
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "version": "0.1.0",
+  "description": "Boulderer Web API",
+  "devDependencies": {},
+  "author": "Carlos Westman",
+  "license": "GNU AGPLv3"
+}
