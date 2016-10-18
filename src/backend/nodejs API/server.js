@@ -48,9 +48,9 @@ var Boulder     = require('./models/boulder');
 //EXPRESS ROUTING
  
 
-app.get('/index.html', function (req, res) {
-   res.sendFile( __dirname + "/" + "index.html" );
-});
+//app.get('/index.html', function (req, res) {
+//   res.sendFile( __dirname + "/" + "index.html" );
+//});
 
 //app.get('/api/pictures/byfilename/:filename', function(req,res){
 //    console.log('filename param: ' + req.params.filename);
@@ -64,7 +64,7 @@ app.get('/index.html', function (req, res) {
 //}
 //);
 
-app.get('/api/pictures/bygfs/:_id', function(req, res) {
+app.get('/api/pictures/:_id', function(req, res) {
 var file_id = mongoose.Types.ObjectId(req.params._id);
        gfs.files.find({ _id: file_id }).toArray(function (err, files) {
 
