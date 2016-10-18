@@ -13,7 +13,7 @@ I started Boulderer with two goals in mind, one social and the other one persona
 
 <div align="center">
 <img src="./assets/map.jpg" width="30%" border="4">
-<img src="./assets/create boulder 3.jpg" width="30%" border="4">
+<img src="./assets/B new boulder HM 3.jpg" width="30%" border="4">
 <img src="./assets/boulder list.jpg" width="30%" border="4">
 </div>
 
@@ -30,9 +30,9 @@ The easiest way to search for boulders is in the Map tab.
 Double-tap markers to open the boulder.
 
 <div align="center">	
-<img src="./assets/paper tree map.jpg" width="25%" border="4">
-<img src="./assets/paper tree detail.jpg" width="25%" border="4">
-<img src="./assets/create boulder 3.jpg" width="25%" border="4">
+<img src="./assets/B general boulder map.jpg" width="25%" border="4">
+<img src="./assets/B general boulder detail.jpg" width="25%" border="4">
+<img src="./assets/B general boulder.jpg" width="25%" border="4">
 </div>
 
 ###Discover Boulder Problems in climbing gym:
@@ -56,8 +56,8 @@ To identify yourself in social network you need first to sign in with your Faceb
 
 <div align="center">	
 <img src="./assets/create boulder 1.jpg" width="25%" border="4">
-<img src="./assets/create boulder 2.jpg" width="25%" border="4">
-<img src="./assets/create boulder 3.jpg" width="25%" border="4">
+<img src="./assets/B new boulder HM 2.jpg" width="25%" border="4">
+<img src="./assets/B new boulder HM 3.jpg" width="25%" border="4">
 </div>
 
 ## Roadmap
