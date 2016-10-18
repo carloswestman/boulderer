@@ -3,8 +3,8 @@
 >Hybrid mobile application for sharing boulder problems within the climbing community 
 
 <img src="https://img.shields.io/badge/LICENCE-GNU AGPL V3-0000ff.svg">
-<img src="https://img.shields.io/badge/VERSION-0.1.0-00ff00.svg">
-<img src="https://img.shields.io/badge/Frontend Platform-iOS/Android-00ff00.svg">
+<img src="https://img.shields.io/badge/VERSION-0.1.0-lightgray.svg">
+<img src="https://img.shields.io/badge/Frontend Platform-iOS/Android-lightgray.svg">
 
 I started Boulderer with two goals in mind, one social and the other one personal:
 
@@ -22,7 +22,7 @@ I started Boulderer with two goals in mind, one social and the other one persona
 
 ## Features
 
-Features are focusing on escencial funtionality to make the application useful while keeping it simple. Current support with examples:
+Features are focusing on essential functionality to make the application useful while keeping it simple. Current support with examples:
 
 ###Discover boulders in the outdoors
 
@@ -36,7 +36,7 @@ Double-tap markers to open the boulder.
 </div>
 
 ###Discover Boulder Problems in climbing gym:
-When you are in the climbing gym, there are too many boulders, and they are usually in the same place so the map won't be useful. The easies way to browse trough boulders is in the Boulder Tab. You can setup filters to only view the boulders you are interested in.
+When you are in the climbing gym, there are too many boulders, and they are usually in the same place so the map won't be useful. The easiest way to browse through boulders is in the Boulder Tab. You can setup filters to only view the boulders you are interested in.
 
 <div align="center">	
 <img src="./assets/search filter options.jpg" width="25%" border="4">
@@ -45,7 +45,7 @@ When you are in the climbing gym, there are too many boulders, and they are usua
 </div>
 
 ### Social Networking
-To identify youself in social network you need first to sign in with your Facebook user.
+To identify yourself in social network you need first to sign in with your Facebook user.
 <div align="center">	
 <img src="./assets/auth.jpg" width="25%" border="4">
 </div>
@@ -72,12 +72,12 @@ There is so much work to do, but it's exciting. Here there is a list with some o
  4. Go into the Android and Apple stores.
 3. Improve UX *[Designers needed]*
 4. Develop the product Branding *[Designers needed]*
-4. Develop a business model to mantain the service
-5. Distribute
+5. Develop a business model to maintain the service
+6. Distribute
 
 ## Architecture
 
-The architecture stack relies heavily on <b>JavasScript</b>. and lightweight frameworks aimed to develop scalable web solutions. I think performace of the backend is pretty solid. I am still wondering if I should follow a native approach for the frontends:
+The architecture stack relies heavily on <b>JavaScript</b>. and lightweight frameworks aimed to develop scalable web solutions. I think performance of the backend is pretty solid. I am still wondering if I should follow a native approach for the frontends:
 
 <table>
   <tr>
