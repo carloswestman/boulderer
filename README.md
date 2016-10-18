@@ -88,7 +88,6 @@ The architecture stack relies heavily on <b>JavaScript</b>. and lightweight fram
    <td></td>
    <td>Document storage: <b>MongoDB</b></td>
   </tr>
-  <tr>
    <tr>
    <td></td>
    <td>Data Model: <b>Express</b></td>
@@ -105,7 +104,7 @@ The architecture stack relies heavily on <b>JavaScript</b>. and lightweight fram
 
 ##API
 
-API doc comes here...
+A RESTful API has been implemented. At the moment there is not support for DELETE or UPDATE actions:
 
 <table>
 <tr>
@@ -137,9 +136,10 @@ Description
 `GET`
 </td>
 <td>
+Description
 </td>
 <td>
-Gets an array with boulders
+Gets a JSON array of boulders
 </td>
 </tr>
 
@@ -161,14 +161,67 @@ None
 Response
 </td>
 <td>
-Returns a JSON array with boulders. A succesful response will generate a 200 http status<br>
-Response Example:<br>
+A succesful response will generate a 200 http status. If an error ocurs, an http error status code will be generated.<br>
+Succesful response Example:<br>
 <pre style="json">
 [  {    "_id": "5805a71ea10ff6e414d37bdf",    "updatedAt": "2016-10-18T04:37:49.830Z",    "createdAt": "2016-10-18T04:37:49.830Z",    "grade": 6,    "accuracy": 1979,    "latitude": 49.73310552199455,    "longitude": -123.1416806450711,    "pictureNaturalHeight": 4032,    "pictureNaturalWidth": 3024,    "pictureId": "5805a71ca10ff6e414d77bdc",    "svgData": `"<circle id=\"0\" cx=\"60\" cy=\"376\" r=\"17\" style=\"stroke: rgb(255, 0, 0); stroke-width: 2px; fill: rgba(0, 0, 0, 0);\">"`,    "svgViewPortHeight": 427,    "svgViewPortWidth": 320,    "ownerId": "carloswestman",    "name": "Half Moon",    "__v": 0  }]
 </pre>
-
 </td>
 </tr>
+
+<tr>
+<td>
+/api/boulders<br>
+`POST`
+</td>
+<td>
+Description
+</td>
+<td>
+Posts a boulder
+</td>
+</tr>
+
+<tr>
+<td>
+</td>
+<td>
+Parameters
+</td>
+<td>
+The body request should include the following parameters:
+
+* <b>name:</b> Boulder name
+* <b>grade:</b> Boulder grade
+* <b>ownerID:</b> Id of the user
+* <b>pictureID:</b> Id of the picture stored in the database
+* <b>pirctureNaturalWidth:</b> Natural width of the picture
+* <b>pictureNaturalHeight:</b> Natural height of the picture
+* <b>svgData:</b> SVG data containing the sketch for the boulder
+* <b>svgViewPortWidth:</b> svgViewPortWidth property when the boulder was created
+* <b>svgViewPortHeight:</b> svgViewPortHeight property when the boluder was created
+* <b>longitud:</b> GPS longitude
+* <b>latitude:</b> GPS latitude
+* <b>accuracy:</b> GPS accuracy
+</td>
+</tr>
+
+<tr>
+<td>
+</td>
+<td>
+Response
+</td>
+<td>
+A succesful response will generate a 200 http status. If an error ocurs, an http error status code will be generated.<br>
+Succesful response Example:<br>
+<pre style="json">
+{ message: 'Boulder created, go for it and crush it man!' }
+</pre>
+</td>
+</tr>
+
+
 <table>
 
 
