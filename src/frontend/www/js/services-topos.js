@@ -45,7 +45,7 @@ var isInit = false;
      var picturePromises = [];
      //var picturePromises;
      for(var i = 0; i < topos.length; i++) {
-         var picturePromise = $http.get("http://carloswestman.com:8080/api/pictures/bygfs/" + topos[i].pictureId,{responseType: "arraybuffer"} );
+         var picturePromise = $http.get("http://carloswestman.com:8080/api/pictures/" + topos[i].pictureId,{responseType: "arraybuffer"} );
          picturePromises.push(picturePromise);
      }
     
