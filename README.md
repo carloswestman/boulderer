@@ -75,10 +75,35 @@ There is so much work to do, but it's exciting. Here there is a list with some o
 4. Develop a business model to mantain the service
 5. Distribute
 
-
 ## Architecture
 
-Architecture goes here.
+The architecture stack relies heavily on <b>JavasScript</b>. and lightweight frameworks aimed to develop scalable web solutions. I think performace of the backend is pretty solid. I am still wondering if I should follow a native approach for the frontends:
+
+<table>
+  <tr>
+   <td>Back-end @AWS</td>
+   <td>Web API: <b>NodeJS</b></td>
+  </tr>
+  <tr>
+   <td></td>
+   <td>Document storage: <b>MongoDB</b></td>
+  </tr>
+  <tr>
+   <tr>
+   <td></td>
+   <td>Data Model: <b>Express</b></td>
+  </tr>
+  <tr>
+    <td>Front-End @PhoneGap</td>
+    <td>Framework:<b>AngularJS</b></td> 
+  </tr>
+    <tr>
+    <td></td>
+    <td>UX components:<b>Ionic</b></td> 
+  </tr>
+</table>
+
+
 
 ## Contribute
 
@@ -86,9 +111,9 @@ I am interested in working in teams. If you think that you can collaborate in th
 
 ## License
 
-Carlos Westman – carloswestman@gmail.com
+Carlos Westman – <carloswestman@gmail.com>
 
 Distributed under the GNU APGL V3 license. See ``LICENSE`` for more information.
 
-[https://github.com/carloswestman](https://github.com/carloswestman)
+[https://github.com/carloswestman/boulderer](https://github.com/carloswestman/boulderer)
 
