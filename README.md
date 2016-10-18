@@ -95,14 +95,17 @@ The architecture stack relies heavily on <b>JavasScript</b>. and lightweight fra
   </tr>
   <tr>
     <td>Front-End @PhoneGap</td>
-    <td>Framework:<b>AngularJS</b></td> 
+    <td>Framework: <b>AngularJS</b></td> 
   </tr>
     <tr>
     <td></td>
-    <td>UX components:<b>Ionic</b></td> 
+    <td>UX components: <b>Ionic</b></td> 
   </tr>
 </table>
 
+##API
+
+API doc comes here...
 
 
 ## Contribute
