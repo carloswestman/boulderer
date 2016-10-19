@@ -31,6 +31,7 @@ if (typeof(Number.prototype.toRad) === "undefined") {
     
 getAccurateCurrentPosition = function (geolocationSuccess, geolocationError, geoprogress, options) {
     var lastCheckedPosition,
+        bestAvailablePosition,
         locationEventCount = 0,
         watchID,
         timerID;
@@ -38,10 +39,18 @@ getAccurateCurrentPosition = function (geolocationSuccess, geolocationError, geo
     options = options || {};
 
     var checkLocation = function (position) {
+        
         lastCheckedPosition = position;
         locationEventCount = locationEventCount + 1;
         // We ignore the first event unless it's the only one received because some devices seem to send a cached
         // location even when maxaimumAge is set to zero
+        
+        if(locationEventCount == 1){ bestAvailablePosition = position;}
+        else {
+            if(position.coords.accuracy <= bestAvailablePosition.coords.accuracy)
+                { bestAvailablePosition = position;}
+        }
+
         if ((position.coords.accuracy <= options.desiredAccuracy) && (locationEventCount > 1)) {
             clearTimeout(timerID);
             navigator.geolocation.clearWatch(watchID);
@@ -53,7 +62,7 @@ getAccurateCurrentPosition = function (geolocationSuccess, geolocationError, geo
 
     var stopTrying = function () {
         navigator.geolocation.clearWatch(watchID);
-        foundPosition(lastCheckedPosition);
+        foundPosition(bestAvailablePosition);
     };
 
     var onError = function (error) {
