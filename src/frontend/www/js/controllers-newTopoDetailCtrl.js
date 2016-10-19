@@ -1,48 +1,7 @@
 angular.module('starter.controllers')
-.controller('NewTopoDetailCtrl', function($scope, $stateParams, Topos,$ionicModal,$ionicPopover,$cordovaCamera, $http) {
+.controller('NewTopoDetailCtrl', function($scope, $stateParams, Topos, Geolocation, $ionicModal,$ionicPopover,$cordovaCamera, $http) {
 
-    ///Start Toolbox and Edit Modal code
-     //modal popoever code here
-
-    
-//    $scope.popoverSelection = "pencil"; //default
-//    //console.log("popoverSelection = " + $scope.popoverSelection);
-//    $ionicPopover.fromTemplateUrl('templates/modal-topo-popover.html', {
-//      scope: $scope
-//   }).then(function(popover) {
-//            $scope.popover = popover;
-//            console.log("popover tool menu initialized");
-//   });
-//
-//   $scope.openPopover = function($event) {
-//      $scope.popover.show($event);
-//   };
-//
-//   $scope.closePopover = function() {
-//      $scope.popover.hide();
-//   };
-//
-//   //Cleanup the popover when we're done with it!
-//   $scope.$on('$destroy', function() {
-//      $scope.popover.remove();
-//   });
-//
-//   // Execute action on hide popover
-//   $scope.$on('popover.hidden', function() {
-//      // Execute action
-//   });
-//
-//   // Execute action on remove popover
-//   $scope.$on('popover.removed', function() {
-//      // Execute action
-//   });
-//
-//    $scope.popoverSelect = function(selection)
-//    {
-//      $scope.popoverSelection = selection;  
-//    };
-    
-    
+ 
     //Modal Topo Edit
     
        $ionicModal.fromTemplateUrl('templates/modal-newtopo.html', {
@@ -149,7 +108,8 @@ topo.picture = "./img/guestUser.png";
         {
             //we should re organize this cascade promises...
             //Get Position
-            GeolocationOptions = { enableHighAccuracy: true };
+            //GeolocationOptions = { enableHighAccuracy: true };
+            console.log({"function": "onSuccess", "acc": position.coords.accuracy, "position": position});
             var onGeolocationSuccess = function(position) {
     console.log('Latitude: '          + position.coords.latitude          + '\n' +
           'Longitude: '         + position.coords.longitude         + '\n' +
@@ -205,7 +165,13 @@ function onGeolocationError(error) {
     console.error('code: '    + error.code    + '\n' +
           'message: ' + error.message + '\n');
 }
-navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError);
+
+function onGeolocationProgress(position) {
+    console.log({"function": "onProgress", "acc": position.coords.accuracy, "position": position});
+}
+
+//navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError);
+  Geolocation.getAccurateCurrentPosition(onGeolocationSuccess, onGeolocationError, onGeolocationProgress);         
             
             
 
