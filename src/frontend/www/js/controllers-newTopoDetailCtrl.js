@@ -1,5 +1,5 @@
 angular.module('starter.controllers')
-.controller('NewTopoDetailCtrl', function($scope, $stateParams, Topos, Geolocation, $ionicModal,$ionicPopover,$cordovaCamera, $http) {
+.controller('NewTopoDetailCtrl', function($scope, $stateParams, Topos, Geolocation, $ionicModal,$ionicPopover,$cordovaCamera,$ionicPopup, $http) {
 
  
     //Modal Topo Edit
