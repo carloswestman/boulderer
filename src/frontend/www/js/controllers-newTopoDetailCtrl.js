@@ -109,8 +109,9 @@ topo.picture = "./img/guestUser.png";
             //we should re organize this cascade promises...
             //Get Position
             //GeolocationOptions = { enableHighAccuracy: true };
-            console.log({"function": "onSuccess", "acc": position.coords.accuracy, "position": position});
+            
             var onGeolocationSuccess = function(position) {
+                console.log({"function": "onSuccess", "acc": position.coords.accuracy, "position": position});
     console.log('Latitude: '          + position.coords.latitude          + '\n' +
           'Longitude: '         + position.coords.longitude         + '\n' +
           'Altitude: '          + position.coords.altitude          + '\n' +
@@ -155,6 +156,17 @@ topo.picture = "./img/guestUser.png";
                         $scope.formData = data;
                         console.log("boulder created");
                         console.log(response);
+                        
+                        
+   var alertPopup = $ionicPopup.alert({
+     title: 'Boulder uploaded ',
+     template: 'Crush it!'
+   });
+   alertPopup.then(function(res) {
+     console.log('Thank you for not eating my delicious ice cream cone');
+   });
+                        
+                        
                         });   
             console.log("upload success -end");
 };

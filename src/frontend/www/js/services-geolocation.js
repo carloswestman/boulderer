@@ -1,5 +1,5 @@
 angular.module('starter.services')
-.factory('Geoposition', function($http,$q) {
+.factory('Geolocation', function($http,$q) {
 
     function distance(lon1, lat1, lon2, lat2) {
   var R = 6371; // Radius of the earth in km
@@ -67,7 +67,7 @@ getAccurateCurrentPosition = function (geolocationSuccess, geolocationError, geo
     };
 
     if (!options.maxWait)            options.maxWait = 10000; // Default 10 seconds
-    if (!options.desiredAccuracy)    options.desiredAccuracy = 50; // Default 20 meters
+    if (!options.desiredAccuracy)    options.desiredAccuracy = 20; // Default 20 meters
     if (!options.timeout)            options.timeout = options.maxWait; // Default to maxWait
 
     options.maximumAge = 0; // Force current locations only
@@ -79,8 +79,7 @@ getAccurateCurrentPosition = function (geolocationSuccess, geolocationError, geo
 
   return {
 
-    getAccurateCurrentPosition: getAccurateCurrentPosition,
-    distance: distance
+    getAccurateCurrentPosition: getAccurateCurrentPosition
   };
 });
 
