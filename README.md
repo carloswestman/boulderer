@@ -65,15 +65,13 @@ To identify yourself on a social network you need first to sign in with your Fac
 There is so much work to do, but it's exciting. Here there is a list with some of the roadmap activities:
 
 1. Create the GitHub repository with a MVP version *[DONE]*
-2. Code Refactoring *[It's ugly and not clean]*
- 1. Cleaning sprint
- 2. Improve accuracy of geolocation web service
- 3. Test the frontend in Android
- 4. Go into the Android and Apple stores.
-3. Improve UX *[Designers needed]*
+2. Continuous Software Development *[Check the issue list for details]*
+4. Business Model to maintain the service
+5. Marketing strategy
+4. Improve UX *[Designers needed]*
 4. Develop the product Branding *[Designers needed]*
-5. Develop a business model to maintain the service
-6. Distribute
+4. Distribute in the stores.
+
 
 ## Architecture
 
