@@ -13,6 +13,18 @@ angular.module('starter.controllers')
      
     //set SVG control to image-id position and dimensions, otherwise set fullscreen
     image = svg = document.getElementById(attrs.imageid); //Get svg element
+    var strokeWidth = 2;
+    var color = 'red';
+
+         //Listen event changeTool
+          scope.$on('changeTool', function(e, arg){
+            color = arg.color;
+            attrs.tool = arg.tool;
+            tool = arg.tool;
+          });
+        
+
+        
     if(image != null) //get viewport info from topo
         {
             var witdh;
@@ -143,22 +155,57 @@ angular.module('starter.controllers')
         //var svgns = "http://www.w3.org/2000/svg";
         // var line = document.createElementNS(svgns, 'line');
         newPath = null;
+        newPathArray = [];
         
        if(event != null)//typeof event.touches === 'undefined' || event.touches === null)
         { 
             //<circle cx="100" cy="100" r="68" stroke="red" stroke-width="1" fill="transparent" />
+        if(tool=='circle')
+        {
         newPath = document.createElementNS("http://www.w3.org/2000/svg", 'circle'); //Create a circle in SVG's namespace
         newPath.setAttribute("id",scope.elementId);           
         newPath.setAttribute("cx",Xpos(event));
         newPath.setAttribute("cy",Ypos(event));
         newPath.setAttribute("r",10);
             
-        newPath.style.stroke = "red"; //Set stroke colour
-        newPath.style.strokeWidth = "2"; //Set stroke width
+        newPath.style.stroke = color; //Set stroke colour
+        newPath.style.strokeWidth = strokeWidth; //Set stroke width
         newPath.style.fill = "transparent";
         
-        elem[0].appendChild(newPath);
+        newPathArray.push(newPath);
+        }
+        if(tool == 'doubleCircle')
+        {
+        newPath = document.createElementNS("http://www.w3.org/2000/svg", 'circle'); //Create a circle in SVG's namespace
+        newPath.setAttribute("id",scope.elementId);           
+        newPath.setAttribute("cx",Xpos(event));
+        newPath.setAttribute("cy",Ypos(event));
+        newPath.setAttribute("r",10);
+            
+        newPath.style.stroke = color; //Set stroke colour
+        newPath.style.strokeWidth = strokeWidth; //Set stroke width
+        newPath.style.fill = "transparent";
+        
+        newPathArray.push(newPath);
+        
+        newPath = document.createElementNS("http://www.w3.org/2000/svg", 'circle'); //Create a circle in SVG's namespace
+        newPath.setAttribute("id",scope.elementId + "-A");  // -A, -B, -C notation          
+        newPath.setAttribute("cx",Xpos(event));
+        newPath.setAttribute("cy",Ypos(event));
+        newPath.setAttribute("r",10 - 4);
+            
+        newPath.style.stroke = color; //Set stroke colour
+        newPath.style.strokeWidth = strokeWidth; //Set stroke width
+        newPath.style.fill = "transparent";
+        
+        newPathArray.push(newPath);
+        }
+        
+        for(i=0;i< newPathArray.length; i++)
+        {   
+        elem[0].appendChild(newPathArray[i]);
             //console.log("child appended");
+        }
         }
     };
     
@@ -166,16 +213,51 @@ angular.module('starter.controllers')
         console.log("touchmove function called");
         //svg = document.getElementById('svgOne'); //Get svg element
         newPath = null;
-        newPath = document.getElementById(scope.elementId);
-        //console.log(newPath)
-        if(newPath != null)
+        newPathArray = [];
+        if(tool == 'circle')
             {
-                currentCX = newPath.getAttribute("cx");
-                currentCY = newPath.getAttribute("cy");
-                currentR =  newPath.getAttribute("r");
-                newR = 10 + Math.abs(parseInt(currentCX,10) - parseInt(Xpos(event),10));
-                newPath.setAttribute("r",newR); //Set path's data
-                elem[0].appendChild(newPath);
+        newPath = document.getElementById(scope.elementId);
+                newPathArray.push(newPath);
+            }
+        if(tool == 'doubleCircle')
+            {
+                newPath = document.getElementById(scope.elementId);
+                newPathArray.push(newPath);
+                newPath = document.getElementById(scope.elementId + "-A");
+                newPathArray.push(newPath);            
+            }
+        //console.log(newPath)
+        if(newPathArray.length > 0)
+            {
+                if(tool == 'circle')
+                    {
+                        currentCX = newPathArray[0].getAttribute("cx");
+                        currentCY = newPathArray[0].getAttribute("cy");
+                        currentR =  newPathArray[0].getAttribute("r");
+                        newR = 10 + Math.abs(parseInt(currentCX,10) - parseInt(Xpos(event),10));
+                        newPathArray[0].setAttribute("r",newR); //Set path's data
+                        
+                    }
+                if(tool == 'doubleCircle')
+                    {
+                        currentCX = newPathArray[0].getAttribute("cx");
+                        currentCY = newPathArray[0].getAttribute("cy");
+                        currentR =  newPathArray[0].getAttribute("r");
+                        newR = 10 + Math.abs(parseInt(currentCX,10) - parseInt(Xpos(event),10));
+                        newPathArray[0].setAttribute("r",newR); //Set path's data
+                        
+                        currentCX = newPathArray[1].getAttribute("cx");
+                        currentCY = newPathArray[1].getAttribute("cy");
+                        currentR =  newPathArray[1].getAttribute("r");
+                        newR = 10 + Math.abs(parseInt(currentCX,10) - parseInt(Xpos(event),10)) -4;
+                        newPathArray[1].setAttribute("r",newR); //Set path's data
+                        
+                    }
+               
+                for(i=0;i< newPathArray.lenght;i++)
+                    {
+                elem[0].appendChild(newPathArray[i]);
+                    }
                 //lastMove = event;  
             }
     };
@@ -193,10 +275,22 @@ angular.module('starter.controllers')
 //    ionic.onGesture('drag', $scope.touchMove, svg,'' );
 //    ionic.onGesture('dragend', $scope.touchEnd, svg,'' );
         
+//        scope.changeStrokeWidth = function(event)
+//        {
+//            if (strokeWidth == 2) { strokeWidth = 4;} else { strokeWidth = 2;}
+//        };
+//        scope.changeColor = function(event)
+//        {
+//            if (color == 'red') { color = 'green';} else { color = 'red';}
+//        };
+        
+        
+        
         if(attrs.mode == "edit") //resgister events if not read-only 
             {
                 switch(tool) {
-    case 'circle':
+                    case 'circle':
+                    case 'doubleCircle':
                         $ionicGesture.on('dragstart',scope.circleTouchStart,elem);
                         $ionicGesture.on('drag', scope.circleTouchMove,elem);
                         $ionicGesture.on('dragend',scope.circleTouchEnd,elem);
@@ -208,7 +302,9 @@ angular.module('starter.controllers')
                         $ionicGesture.on('drag', scope.touchMove,elem);
                         $ionicGesture.on('dragend',scope.touchEnd,elem);
                 }
-                
+               
+//                $ionicGesture.on('swiperight',scope.changeStrokeWidth,elem); // strokeWidth
+//                $ionicGesture.on('swipeleft',scope.changeColor,elem);  // color
             }
         else
             {

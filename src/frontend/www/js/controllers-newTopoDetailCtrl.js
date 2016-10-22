@@ -1,7 +1,50 @@
 angular.module('starter.controllers')
-.controller('NewTopoDetailCtrl', function($scope, $stateParams, Topos, Geolocation, $ionicModal,$ionicPopover,$cordovaCamera,$ionicPopup, $http) {
+.controller('NewTopoDetailCtrl', function($scope, $stateParams, Topos, Geolocation, $ionicModal, $ionicActionSheet, $ionicPopover, $cordovaCamera, $ionicPopup, $http) {
 
- 
+
+ //Actionsheet for tool selection
+    $scope.showTools = function() {
+
+   // Show the action sheet
+   var hideSheet = $ionicActionSheet.show({
+     buttons: [
+       { text: 'Holds' },
+       { text: 'Start/End' },
+       { text: 'Feet' }
+     ],
+     titleText: 'Pick your tool',
+     cancelText: 'Cancel',
+     cancel: function() {
+          // add cancel code..
+        },
+     buttonClicked: function(index) {
+       switch (index)
+       {
+       case 0: //holds
+           arg = {};
+           arg.tool = 'circle';
+           arg.color = 'red';
+           $scope.$broadcast('changeTool',arg);
+           break;
+        case 1: //Start/End
+           arg = {};
+           arg.tool = 'doubleCircle';
+           arg.color = 'red';
+           $scope.$broadcast('changeTool',arg);
+           break;
+        case 2: //Feet
+           arg = {};
+           arg.tool = 'circle';
+           arg.color = 'green';
+           $scope.$broadcast('changeTool',arg);
+       break;
+       }
+       return true;
+     }
+   });
+
+ };
+
     //Modal Topo Edit
     
        $ionicModal.fromTemplateUrl('templates/modal-newtopo.html', {
