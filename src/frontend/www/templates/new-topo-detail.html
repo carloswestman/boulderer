@@ -4,12 +4,15 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="{{newtopo.name}}">
+<!--<ion-view view-title="{{newtopo.name}}">-->
+<ion-view>
     <ion-nav-buttons side="secondary">
-    <button class="button button-clear" ng-click="topo.picture = currentImageData; openNewModal()">Mark your holds</button>
+    <button class="button button-clear" ng-click="topo.picture = currentImageData; openNewModal()">Check your holds</button>
+<!--        <button class="button button-clear" ng-click="getPicture()">Reset</button>-->
     </ion-nav-buttons>
   <ion-content class="padding" > <!--ng-controller="NewTopoDetailCtrl">-->
-    <img id="myImage"  style="width: 70%">
+       <a class="button button-full icon ion-ios-cloud-upload" ng-click="uploadBoulder()"> Upload Boulder</a>
+<!--    <img id="myImage"  style="width: 70%">-->
 <!--
       <ion-item>
       <div id="container" style="position:relative;width:30%;">
@@ -17,8 +20,8 @@
 </div>
       </ion-item>
 -->
-    <a class="button button-full icon ion-camera" ng-click="getPicture()"> Get Picture</a>
-    <a class="button button-full icon ion-ios-cloud-upload" ng-click="uploadBoulder()"> Upload Boulder</a>
+<!--    <a class="button button-full icon ion-camera" ng-click="getPicture()"> Get Picture</a>-->
+<!--    <a class="button button-full icon ion-ios-cloud-upload" ng-click="uploadBoulder()"> Upload Boulder</a>-->
      <!-- <button class="button" ng-click="uploadPicture2()"> Upload Picture 2</button>-->
     <div class="scroller"></div>   
       <div id="newTopoDetail-markdown4" style="color:#000000;">
@@ -50,5 +53,11 @@
                 <input type="text" placeholder="Optional" ng-model="newtopo.name">
             </label>
         </form>
+<!--      <img id="myImage"  style="width: 70%; align= middle;">-->
+      <div id="container2" style="position:relative;width:100%;height:auto;border: 1px solid red;" ng-click="openNewModal()">
+    <img   id="myImage" style="display: block;opacity:.99;position:relative;top:0;left:0;width:100%;height:100%;">
+<svg id="newTopoDetailSvg" imageid="TopoDetailImage" mode=""   style="opacity:.99;position:absolute;top:0;left:0;width:100%;height:100%;border: 1px solid blue;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" detect-gestures> <!-- width="320" height="568" viewBox="0 0 320 568">--> 
+</svg>
+</div>
   </ion-content>
 </ion-view>

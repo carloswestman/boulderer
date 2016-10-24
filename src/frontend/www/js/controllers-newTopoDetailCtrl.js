@@ -1,7 +1,21 @@
 angular.module('starter.controllers')
 .controller('NewTopoDetailCtrl', function($scope, $stateParams, Topos, Geolocation, $ionicModal, $ionicActionSheet, $ionicPopover, $cordovaCamera, $ionicPopup, $http) {
 
+  //$scope.topo = Topos.get($stateParams.topoId);
+    $scope.newtopo = new Object(); //created to the databinding to work
+    $scope.newtopo.grade = 0;
+    $scope.newtopo.stars = 0;
+    var topo = new Object();
+    topo.name = "new boulder";
+    topo.ownerId = "carloswestman";
+    topo.svgData = "";
+    topo.picture = "./img/guestUser.png";
 
+    $scope.topo = topo;
+    $scope.currentImageData = {}; 
+    console.log("0:" + $scope.currentImageData);
+    
+    
  //Actionsheet for tool selection
     $scope.showTools = function() {
 
@@ -45,7 +59,7 @@ angular.module('starter.controllers')
 
  };
 
-    //Modal Topo Edit
+ //Modal Topo Edit
     
        $ionicModal.fromTemplateUrl('templates/modal-newtopo.html', {
       scope: $scope,
@@ -66,6 +80,12 @@ angular.module('starter.controllers')
 	
    $scope.closeNewModal = function() {
       $scope.newModal.hide();
+       //Transfer SVG Modal Content into Topo and SVG Detail
+       var newModalTopoSvgitem= document.getElementById('newModalTopoSvg');
+       var newTopoDetailSvgitem= document.getElementById('newTopoDetailSvg');
+        var SVGdata = newModalTopoSvgitem.innerHTML;
+        $scope.topo.svgData = SVGdata;  // A string
+        newTopoDetailSvgitem.innerHTML = $scope.topo.svgData;
    };
 	
    //Cleanup the modal when we're done with it!
@@ -84,26 +104,7 @@ angular.module('starter.controllers')
    });
     ///end toolbox and edit modal config
 
-  //$scope.topo = Topos.get($stateParams.topoId);
-    $scope.newtopo = new Object(); //created to the databinding to work
-    $scope.newtopo.grade = 0;
-    $scope.newtopo.stars = 0;
-var topo = new Object();
-topo.name = "new boulder";
-topo.ownerId = "carloswestman";
-topo.svgData = "";
-topo.picture = "./img/guestUser.png";
-//pictureId: String,
-//latitude: Number,
-//longitude: Number,
-//accuracy: Number,
-//grade: Number,
-//communityGrade: Number,
-//likes: String,
-//crush: String
-  $scope.topo = topo;
-  $scope.currentImageData = {}; 
-    console.log("0:" + $scope.currentImageData);
+
     
   $scope.getPicture = function(){  
     var options = {
@@ -129,6 +130,10 @@ topo.picture = "./img/guestUser.png";
       $scope.pictureNaturalHeight = image.naturalHeight;
       console.log("$scope.pictureNaturalWidth " + $scope.pictureNaturalWidth);
           console.log("$scope.pictureNaturalHeight " + $scope.pictureNaturalHeight);
+          
+          
+          $scope.topo.picture = $scope.currentImageData; 
+          $scope.openNewModal()
       }, function(err) {
       // error
           console.log("error here:" + err);
@@ -265,6 +270,18 @@ function onGeolocationProgress(position) {
       upload($scope.currentImageData, uploadURL);        
       console.log("uploaded picture function ended") ; 
     };
+    
+    
+
+//New Workflow...
+    //1. take picture
+    //2. Mark holds
+    //3. Add name and grade
+    //4. Upload Boulder
+
+$scope.getPicture();
+
+    
 
    
 
