@@ -17,6 +17,7 @@ var Schema       = mongoose.Schema;
 var BoulderSchema   = new Schema({
 name: String,
 ownerId: String,
+ownerName: String,
 svgViewPortWidth: Number,
 svgViewPortHeight: Number,
 svgData: String,

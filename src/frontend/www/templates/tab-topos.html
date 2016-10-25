@@ -16,11 +16,11 @@
         <i class="icon ion-android-add-circle icon-accessory"></i>
       </ion-item>
 -->
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="topo in topos | filter:search |orderBy:orderBySetting" type="item-text-wrap" href="#/tab/topos/{{topo._id}}">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="topo in topos | filter:search |orderBy:orderBySetting:true" type="item-text-wrap" href="#/tab/topos/{{topo._id}}">
         <img ng-src="{{topo.picture}}">
         <h2>V{{topo.grade}}{{topo.name | BoulderNameWithComma}}</h2> 
           <p>{{topo.distance | distance}}</p>
-          <p>{{topo.ownerId}}</p>
+          <p>{{topo.ownerName}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
 
         <ion-option-button class="button-assertive" ng-click="remove(topo)">

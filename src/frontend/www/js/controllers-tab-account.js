@@ -1,10 +1,8 @@
 angular.module('starter.controllers')
 .controller('AccountCtrl', function($scope, $state, $q, UserService, $ionicLoading,$ionicActionSheet) {
   
-
-        $scope.displayName = "anonymous";
-        //$scope.email = "";
-        $scope.photoURL = "./img/guestUser.png";
+$scope.user = UserService.getUser();
+    
         
     // This is the success callback from the login method
   var fbLoginSuccess = function(response) {
@@ -23,17 +21,14 @@ angular.module('starter.controllers')
 				userID: profileInfo.id,
 				name: profileInfo.name,
 				email: profileInfo.email,
-        picture : "https://graph.facebook.com/" + authResponse.userID + "/picture?type=large"
+                photoURL : "https://graph.facebook.com/" + authResponse.userID + "/picture?type=large"
       });
+        
+        $scope.user = UserService.getUser();
+
       $ionicLoading.hide();
       $state.go('tab.account');
-        //cwm
-        console.log("setting fb no scope 1" + profileInfo.id + " " + profileInfo.name);
-        $scope.$apply(function(){
-        $scope.displayName = profileInfo.name;
-        $scope.email = profileInfo.email;
-        $scope.photoURL = "https://graph.facebook.com/" + authResponse.userID + "/picture?type=large";
-        });
+        
     }, function(fail){
       // Fail get profile info
       console.log('profile info fail', fail);
@@ -84,16 +79,11 @@ angular.module('starter.controllers')
 							userID: profileInfo.id,
 							name: profileInfo.name,
 							email: profileInfo.email,
-							picture : "https://graph.facebook.com/" + success.authResponse.userID + "/picture?type=large"
+							photoURL : "https://graph.facebook.com/" + success.authResponse.userID + "/picture?type=large"
 						});
                         //cwm
-                        console.log("setting fb no scope 2" + profileInfo.id + " " + profileInfo.name);
-                        $scope.$apply(function(){
-        $scope.displayName = profileInfo.name;
-        $scope.email = profileInfo.email;
-        $scope.photoURL = "https://graph.facebook.com/" + success.authResponse.userID + "/picture?type=large";
-                        });
 
+        $scope.user = userService.getUser();
 						$state.go('tab.account');
 					}, function(fail){
 						// Fail get profile info
@@ -101,13 +91,13 @@ angular.module('starter.controllers')
 					});
 				}else{
                     console.log("setting fb no scope 3");
-                    $scope.$apply(function(){
-					$scope.displayName = user.name;
-        $scope.email = user.email;
-        $scope.photoURL = user.picture;
-                        });
+//                    $scope.$apply(function(){
+//					$scope.displayName = user.name;
+//                    $scope.email = user.email;
+//                    $scope.photoURL = user.picture;
+//                        });
 
-                    $state.go('tab.account');
+//                    $state.go('tab.account');
 				}
       } else {
         // If (success.status === 'not_authorized') the user is logged in to Facebook,
@@ -147,13 +137,14 @@ angular.module('starter.controllers')
                 // Facebook logout
                 console.log("facebook logging out");
                 facebookConnectPlugin.logout(function(){
+                
+                
+                userService.logoutUser();
+                $scope.user = userService.getUser();
+
+                    
                 $ionicLoading.hide();
                 $state.go('tab.account');
-                    $scope.$apply(function(){
-                    $scope.displayName = "anonymous";
-                    $scope.email = "";
-                    $scope.photoURL = "./img/guestUser.png";
-                    });
                 },
                 function(fail){
                 $ionicLoading.hide();

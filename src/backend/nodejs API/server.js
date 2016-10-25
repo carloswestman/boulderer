@@ -166,14 +166,9 @@ app.post('/api/pictures', upload.single('file'), function (req, res) {
             
   });
             
-            
-            
-
-//  res.writeHead(200);
-//  res.end(JSON.stringify(response));
        });
    });
-//});
+
 
 app.route('/api/boulders')
     // create a boulder (accessed at POST http://localhost:8080/api/boulder)
@@ -183,6 +178,7 @@ app.route('/api/boulders')
         var boulder = new Boulder();      // create a new instance of the Boulder model
         boulder.name = req.body.name;  // set the boulder name (comes from the request)
         boulder.ownerId = req.body.ownerId;
+        boulder.ownerName = req.body.ownerName;
         boulder.svgViewPortWidth= req.body.svgViewPortWidth;
         boulder.svgViewPortHeight= req.body.svgViewPortHeight;
         boulder.svgData = req.body.svgData;

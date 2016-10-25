@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.8Topoist400834" 
+<widget id="com.carloswestman.boulderer" 
         version="1" 
         xmlns="http://www.w3.org/ns/widgets" 
         xmlns:gap="http://phonegap.com/ns/1.0"
         versionCode = "1">
-  <name>Topoist</name>
+  <name>Boulderer</name>
   <description>
         Migrating to Facebook native login, because InAppBrower plugin doesnt work in Cordova
     </description>

@@ -1,19 +1,23 @@
 angular.module('starter.controllers')
-.controller('NewTopoDetailCtrl', function($scope, $stateParams, Topos, Geolocation, $ionicModal, $ionicActionSheet, $ionicPopover, $cordovaCamera, $ionicPopup, $http) {
+.controller('NewTopoDetailCtrl', function($scope, $stateParams, Topos, Geolocation, UserService, $ionicModal, $ionicActionSheet, $ionicPopover, $cordovaCamera, $ionicPopup, $http, $state) {
 
-  //$scope.topo = Topos.get($stateParams.topoId);
-    $scope.newtopo = new Object(); //created to the databinding to work
+    var user = UserService.getUser();
+    
+    if(!user.userID){ $state.go('tab.account'); }
+    
+    $scope.newtopo = {}; //created to the databinding to work
     $scope.newtopo.grade = 0;
     $scope.newtopo.stars = 0;
-    var topo = new Object();
+    
+    var topo = {};
     topo.name = "new boulder";
-    topo.ownerId = "carloswestman";
+    topo.ownerId = user.userID;
+    topo.ownerName = user.name;
     topo.svgData = "";
     topo.picture = "./img/guestUser.png";
-
     $scope.topo = topo;
     $scope.currentImageData = {}; 
-    console.log("0:" + $scope.currentImageData);
+
     
     
  //Actionsheet for tool selection
@@ -180,7 +184,8 @@ angular.module('starter.controllers')
                 
                 
                     data =  "name=" + $scope.newtopo.name
-                    + "&ownerId=" + "carloswestman"
+                    + "&ownerId=" + user.userID
+                    + "&ownerName=" + user.name
                     + "&pictureId=" + JSON.parse(res.response).id
                     + "&pictureNaturalWidth=" + pictureNaturalWidth
                     + "&pictureNaturalHeight=" + pictureNaturalHeight
