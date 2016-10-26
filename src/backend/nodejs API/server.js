@@ -201,9 +201,21 @@ console.log(req.body);
 })
         
    // get all the boulders (accessed at GET http://localhost:8080/api/boulders)
+   // param: 
     .get(function(req, res) {
         console.log("GET /boulders")
-        Boulder.find(function(err, boulders) {
+        //get URL params
+        var fromDate = req.param("fromDate");
+var query = {};        
+console.log("fromDate: " + fromDate);
+        if(typeof fromDate != 'undefined')
+{
+query = {"updatedAt": { $gt : fromDate }};
+}
+
+
+          
+        Boulder.find(query,function(err, boulders) {
             if (err)
                 res.send(err);
 

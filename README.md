@@ -125,7 +125,12 @@ Description
 Description
 </td>
 <td>
-Gets a JSON array of boulders
+Gets a JSON array of boulders<br>
+Call example:<br>
+<pre style="url">
+/api/boulders?fromDate=2016-10-26T01:44:29.000Z
+</pre>
+
 </td>
 </tr>
 
@@ -133,10 +138,11 @@ Gets a JSON array of boulders
 <td>
 </td>
 <td>
-Parameters
+Parameters<br>
+`URL`
 </td>
 <td>
-None
+* <b>fromDate:</b> String in ISO Date format. Parameter is Optional. Retrieves boulders updated more recently than fromDate
 </td>
 </tr>
 
