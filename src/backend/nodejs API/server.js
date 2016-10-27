@@ -48,22 +48,6 @@ var Boulder     = require('./models/boulder');
 //EXPRESS ROUTING
  
 
-//app.get('/index.html', function (req, res) {
-//   res.sendFile( __dirname + "/" + "index.html" );
-//});
-
-//app.get('/api/pictures/byfilename/:filename', function(req,res){
-//    console.log('filename param: ' + req.params.filename);
-//    file = './uploads/' + req.params.filename;
-//    var readStream = fs.createReadStream(file);
-//// Create a writable stream
-//res.writeHead(200, {
-//        'Content-Type': 'image/jpeg'
-//    });
-//    readStream.pipe(res);
-//}
-//);
-
 app.get('/api/pictures/:_id', function(req, res) {
 var file_id = mongoose.Types.ObjectId(req.params._id);
        gfs.files.find({ _id: file_id }).toArray(function (err, files) {
@@ -100,9 +84,6 @@ var file_id = mongoose.Types.ObjectId(req.params._id);
 //new post method base on NodeJs tutorial
 app.post('/api/pictures', upload.single('file'), function (req, res) {
 
-   //console.log(req.files.file.name);
-   //console.log(req.files.file.path);
-   //console.log(req.files.file.type);
     var response = {};
    console.log("incoming file name:" + req.file.name);
    console.log("incoming file path:" + req.file.path);
@@ -117,13 +98,7 @@ app.post('/api/pictures', upload.single('file'), function (req, res) {
          if( err ){
               console.log( err );
          };
-            //else{
-//               response = {
-//                   message:'File uploaded successfully',
-//                   filenameorig:req.file.name,
-//                   filenamedest: file
-    //          };
-        //  }
+
             //store file into GridFS
               gfsWriteStream = gfs.createWriteStream({
                   filename: 'myimage',
@@ -151,8 +126,6 @@ app.post('/api/pictures', upload.single('file'), function (req, res) {
             gfsWriteStream.on('finish', function(savedFile) {
             console.log("GridFS Write completed. ");
                 
-            //console.log('file saved', savedFile);
-            //return res.json({file: savedFile});
             });
 
             gfsWriteStream.on('error', function(err){
@@ -174,7 +147,6 @@ app.route('/api/boulders')
     // create a boulder (accessed at POST http://localhost:8080/api/boulder)
     .post(function(req, res) {        
         console.log('creating boulder');
-//console.log(mongoose.connection.readyState);
         var boulder = new Boulder();      // create a new instance of the Boulder model
         boulder.name = req.body.name;  // set the boulder name (comes from the request)
         boulder.ownerId = req.body.ownerId;

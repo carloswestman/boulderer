@@ -3,16 +3,6 @@
 var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
-//var geolocationSchema = new Schema({
-//Latitude: Number
-//Longitude: Number,
-//Altitude: Number,
-//Accuracy: Nuber,
-//Altitude Accuracy: Number,
-//Heading: Number,
-//Speed: Number,
-//Timestamp: String
-//});
 
 var BoulderSchema   = new Schema({
 name: String,
