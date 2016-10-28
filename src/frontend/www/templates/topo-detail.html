@@ -15,66 +15,12 @@
 <svg id="TopoDetailSvg" imageid="TopoDetailImage" mode=""   style="opacity:.99;position:absolute;top:0;left:0;width:100%;height:100%;border: 1px solid blue;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" detect-gestures> <!-- width="320" height="568" viewBox="0 0 320 568">--> 
 </svg>
 </div>
-<!--
-      <div class="buttons">  
-                      <button class="button ">
-                         <i class="icon ion-ios-heart assertive"></i>
-                      </button>     
-                      <button class="button">
-                         <i class="icon ion-ios-star possitive"></i>
-                      </button> 
-                      <button class="button ">
-                         <i class="icon ion-share balanced"></i>
-                      </button> 
-                  </div>
--->
       <ion-list>
-<!--
-          <ion-item class="buttom button-item-right"> 
-                  <div class="buttons">  
-                      <button class="button ">
-                         <i class="icon ion-ios-heart assertive"></i>
-                      </button>     
-                      <button class="button">
-                         <i class="icon ion-ios-star possitive"></i>
-                      </button> 
-                      <button class="button ">
-                         <i class="icon ion-share balanced"></i>
-                      </button> 
-                  </div>
-          </ion-item>
--->
-<!--
-          <ion-checkbox ng-model="item.iLikeIt">I like it!</ion-checkbox>
-          <ion-checkbox ng-model="item.iCrushedIt">I Crushed it!</ion-checkbox>
--->
-<!--
-          <i id="like" ng-class="{'icon ion-ios7-heart': liked, 'icon ion-ios7-heart-outline': !liked}" ng-click="liked=!liked"></i>
-          <i id="like" ng-class="{'icon ion-ios-star': crushed, 'icon ion-ios-star-outline': !crushed}" ng-click="crushed=!crushed"></i>
--->
-<!--
-          <label class="item item-input item-select">
-                <div class="input-label">
-                  Share with
-                </div>
-                <select>
-                  <option selected>Everyone</option>
-                  <option>Friends</option>
-                  <option>Nobody</option>
-                </select>
-              </label>
--->
           <ion-item><b>Name:</b> {{topo.name}}</ion-item>
           <ion-item><b>Grade:</b> V{{topo.grade}}</ion-item>
           <ion-item><b>Distance:</b> {{topo.distance | distance}}</ion-item>
           <ion-item><b>Owner:</b> {{topo.ownerName}}</ion-item>
           <ion-item><b>Created At:</b> {{topo.createdAt}}</ion-item>
-<!--
-          <ion-item><b>Updated At:</b> {{topo.updatedAt}}</ion-item>
-          <ion-item><b>Picture:</b> {{topo.pictureId}}</ion-item>
-          <ion-item><b>Position:</b> {{topo.latitude}}, {{topo.longitude}} </ion-item>
-          <ion-item><b>Accuracy</b> +/-{{topo.accuracy}}m</ion-item>
--->
       </ion-list>
 
   </ion-content>

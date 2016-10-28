@@ -174,10 +174,6 @@ angular.module('starter.controllers')
           'Timestamp: '         + position.timestamp                + '\n');
                 
                 //Upload Boulder
-                                    //console.log(res);
-                //console.log(this);
-                //console.log($scope);
-                    //console.log("upload success"); 
                 //Get SVG Data
                 var SVGitem= document.getElementById('newModalTopoSvg');
                 var SVGdata = SVGitem.innerHTML;  // A string
