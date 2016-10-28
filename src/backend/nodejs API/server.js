@@ -1,4 +1,28 @@
 //REQUIRES
+
+//funtions used to calculate Longitud and Latitude increment to define a squared window
+// arround latitude and longitude at a distance of radius meters.
+
+ // The number of kilometers per degree of longitude is approximately
+    // (2*pi/360) * r_earth * cos(theta)
+    // where theta is the latitude in degrees and r_earth is approximately 6378 km.
+    // The number of kilometers per degree of latitude is approximately the same at all locations, approx
+    // (2*pi/360) * r_earth = 111 km / degree 
+    // So you can do:
+    // new_latitude  = latitude  + (dy / r_earth) * (180 / pi);
+    // new_longitude = longitude + (dx / r_earth) * (180 / pi) / cos(latitude * pi/180);
+    // As long as dx and dy are small compared to the radius of the earth and you don't get too close to the poles.
+
+deltaLatitudeFromMeters = function(latitude, longitude, radius) 
+{
+    return new_latitude  = (radius / 1000 / 6378) * (180 / Math.PI);
+};
+deltaLongitudeFromMeters = function(latitude, longitude, radius) 
+{
+    return new_longitude = (radius / 1000 / 6378) * (180 / Math.PI) / Math.cos(latitude * Math.PI /180);
+};
+
+
 var express = require('express');
 var fs = require("fs");
 var bodyParser = require('body-parser');
@@ -178,15 +202,41 @@ console.log(req.body);
         console.log("GET /boulders")
         //get URL params
         var fromDate = req.param("fromDate");
-var query = {};        
-console.log("fromDate: " + fromDate);
+        var longitude = parseFloat(req.param("longitude"));
+        var latitude = parseFloat(req.param("latitude"));
+        var radius = parseFloat(req.param("radius"));
+    
+var query = {};    
+    
+console.log("param fromDate: " + fromDate);
         if(typeof fromDate != 'undefined')
 {
 query = {"updatedAt": { $gt : fromDate }};
 }
+console.log("param longitude: " + longitude);
+console.log("param latitude: " + latitude);
+console.log("param radius: " + radius);
+    // x !== x check that x is NaN in javascript
+ if ( (longitude == longitude)  && (latitude == latitude)  && (radius == radius))
+{
+
+latMinus = (latitude - deltaLatitudeFromMeters(latitude, longitude, radius)) ;
+latPlus =   (latitude + deltaLatitudeFromMeters(latitude, longitude, radius));
+lonMinus =  (longitude - deltaLongitudeFromMeters(latitude, longitude, radius));
+lonPlus =  (longitude  + deltaLongitudeFromMeters(latitude, longitude, radius));
+console.log(latMinus);
+console.log(latPlus);
+    console.log(lonMinus);
+    console.log(lonPlus);
+query.latitude = { $gt : latMinus , $lt : latPlus };
+query.longitude =  { $gt : lonMinus , $lt : lonPlus } ;
+
+}
+
+console.log({"query": query });
 
 
-          
+
         Boulder.find(query,function(err, boulders) {
             if (err)
                 res.send(err);

@@ -128,7 +128,7 @@ Description
 Gets a JSON array of boulders<br>
 Call example:<br>
 <pre style="url">
-/api/boulders?fromDate=2016-10-26T01:44:29.000Z
+/api/boulders?fromDate=2016-10-26T01:44:29.000Zlatitude=49.699&longitude=-123.152&radius=5000
 </pre>
 
 </td>
@@ -142,7 +142,11 @@ Parameters<br>
 `URL`
 </td>
 <td>
-* <b>fromDate:</b> String in ISO Date format. Parameter is Optional. Retrieves boulders updated more recently than fromDate
+
+* <b>fromDate (optional):</b> String in ISO Date format. Retrieves boulders updated more recently than fromDate
+* <b>longitude (optional):</b> Geoposition longitude coordenate. When used together with latitude and radius parameters, it retrieves boulders contained in a box of +/+ radius meters arround the specified coordinates
+* <b>latitude (optional):</b> Geoposition longitude coordenate
+* <b>radius (optional):</b> radius from position specified in meters
 </td>
 </tr>
 
