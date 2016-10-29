@@ -13,7 +13,7 @@
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="topo in topos | filter:search |orderBy:orderBySetting:true" type="item-text-wrap" href="#/tab/topos/{{topo._id}}">
         <img ng-src="{{topo.picture}}">
         <h2>V{{topo.grade}}{{topo.name | BoulderNameWithComma}}</h2> 
-          <p>{{topo.distance | distance}}</p>
+          <p>{{topo.distance | distance}}, {{topo.age | age}}</p>
           <p>{{topo.ownerName}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
 

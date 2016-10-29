@@ -86,9 +86,52 @@ getAccurateCurrentPosition = function (geolocationSuccess, geolocationError, geo
     timerID = setTimeout(stopTrying, options.maxWait); // Set a timeout that will abandon the location loop
 };
 
-  return {
+var position = {};
+var positionIsInit = false;
+var timer = 0;
+var refreshRate = 60000; //milliseconds
+var geolocationDefer = $q.defer();
 
+var init = function(){
+    getAccurateCurrentPosition(GeoSuccess, GeoError, GeoProgress );
+    return geolocationDefer.promise;
+};
+    
+var GeoProgress = function(pos){
+    console.log({"Geolocation Onprogress": pos});
+};
+var GeoSuccess = function(pos){
+    console.log({"Geolocation Success": pos});
+    position = pos;
+    positionIsInit = true;
+    if(timer == 0)
+        {
+            timer = setTimeout(updatePosition, refreshRate);
+            console.log("setting timer: " + timer);
+        }
+    geolocationDefer.resolve(positionIsInit);
+    
+};
+var GeoError = function(error){
+    console.log({"Geolocation Error": error})
+};
+
+var updatePosition = function () {
+    getAccurateCurrentPosition(GeoSuccess, GeoError, GeoProgress );
+};
+
+//Init geoposition Service
+//Let be inited by a controller
+//getAccurateCurrentPosition(GeoSuccess, GeoError, GeoProgress );
+
+
+
+  return {
+    init : function(){ return init();},
+    position : function(){return position;},
+    positionIsInit : function(){return positionIsInit;},
     getAccurateCurrentPosition: getAccurateCurrentPosition
+    
   };
 });
 

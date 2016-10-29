@@ -1,13 +1,15 @@
 angular.module('starter.controllers')
-.controller('MapCtrl', function($scope, $state, Topos) {
+.controller('MapCtrl', function($scope, $state, Geolocation, Topos) {
 
     $scope.$on('$ionicView.enter', function(){
         // Set to redraw Mapbox after is was hidden
-        window.dispatchEvent(new Event('resize'));  
+        window.dispatchEvent(new Event('resize'));
+        $scope.myMap.panTo({lon: Geolocation.position().coords.longitude, lat: Geolocation.position().coords.latitude});
     });
+
 L.mapbox.accessToken = 'pk.eyJ1IjoiY2FybG9zd2VzdG1hbiIsImEiOiJjaXU5em91ZXIwMDBlMzRxZm05Zmtqcjc3In0.KEbKFYi6weYBvw0-HKirPw';
 $scope.myMap = L.mapbox.map('myMap', 'mapbox.streets')
-    .setView([49.2824, -123.109], 9);
+    .setView([Geolocation.position().coords.latitude, Geolocation.position().coords.longitude], 10);
 var myLayer = L.mapbox.featureLayer().addTo($scope.myMap);
     
  var geojson = {

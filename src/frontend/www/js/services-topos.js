@@ -1,5 +1,5 @@
 angular.module('starter.services')
-.factory('Topos', function($http,$q) {
+.factory('Topos', function($http,$q, Geolocation) {
 
     function distance(lon1, lat1, lon2, lat2) {
   var R = 6371; // Radius of the earth in km
@@ -32,51 +32,52 @@ if (typeof(Number.prototype.toRad) === "undefined") {
     // Might use a resource here that returns a JSON array
 var topos = []; 
 var isInit = false;
+var scanRadius = 20000; //m
 var newestBoulderDate = new Date(0); // 1970
-    
+
+
+
+
     var refresh = function()
     {
         var topoDefer = $q.defer(); 
-        $http.get("http://carloswestman.com:8080/api/boulders?fromDate=" + newestBoulderDate.toISOString()).then(function(response){
-        console.log("query: http://carloswestman.com:8080/api/boulders?fromDate=" + newestBoulderDate);
+        $http.get("http://carloswestman.com:8080/api/boulders?fromDate=" + newestBoulderDate.toISOString() + "&latitude=" + Geolocation.position().coords.latitude + "&longitude=" + Geolocation.position().coords.longitude + "&radius=" + scanRadius).then(function(response){
+        
         console.log(response);
         var toposSet = response.data; //JSON.parse(response.data);
-     //get images for topos (thumbnails ideally)...
-     //create json array of pictures.
-     //get pictures:
-     var picturePromises = [];
-     //var picturePromises and update newestBoulderDate ;
-     for(var i = 0; i < toposSet.length; i++) {
-         boulderDate = new Date(Date(toposSet[i].updatedAt));
-         if ( boulderDate.getTime() > newestBoulderDate.getTime() ) { newestBoulderDate = boulderDate }
-         var picturePromise = $http.get("http://carloswestman.com:8080/api/pictures/" + toposSet[i].pictureId,{responseType: "arraybuffer"} );
-         picturePromises.push(picturePromise);
-     }
+        //get images for topos (thumbnails ideally)...
+        //create json array of pictures.
+        //get pictures:
+        var picturePromises = [];
+        //var picturePromises and update newestBoulderDate ;
+        for(var i = 0; i < toposSet.length; i++) 
+        {
+            ////next code updates last available date. not valid anymore with zones. has to be done boulder by boulder
+            //boulderDate = new Date(Date(toposSet[i].updatedAt));
+            //if ( boulderDate.getTime() > newestBoulderDate.getTime() ) { newestBoulderDate = boulderDate }
+            
+            //set a fake picture until data is resolved later
+            toposSet[i].picture = "./icon.png"
+            var picturePromise = $http.get("http://carloswestman.com:8080/api/pictures/" + toposSet[i].pictureId,{responseType: "arraybuffer"} );
+            picturePromises.push(picturePromise);
+        }
     
-         $q.all(picturePromises).then(function(results){
-             for(var m=0; m < results.length; m++)
-             {
-                 data = results[m];
+        picSuccess = function(result)
+        {          
+                 data = result;
                  pictureId = data.config.url;
                  pictureId = pictureId.substring( pictureId.lastIndexOf('/')+1);           
-                 //console.log("pictureId:" + pictureId);
                  
                  //find pictureId in topos collection and store it in K index
                  var k = -1;
                  for(var j= 0 ; j < toposSet.length; j++)
                  {
-                     //is this line of code excecuting after the promise was already fulfilled
                      if(toposSet[j].pictureId == pictureId)
-                         { k = j;
-                         //console.log("found k:" + k);
-                         }
-                 }
-                 
+                         { k = j;}
+                 }               
                  //add image into
                 console.log(data.data);
                 dataBase64 = _arrayBufferToBase64(data.data);
-                //console.log(dataBase64);
-                //console.log(topos);
                 if (k != -1 )
                 {
                 toposSet[k].picture = "data:image/JPEG;base64," + dataBase64;
@@ -87,42 +88,59 @@ var newestBoulderDate = new Date(0); // 1970
                          console.error("a topo index k:" + k + " not found ");
                 }
                 
-             }
+             
+        };
+        picFail = function(error){ console.error(error);};    
+        for(var x = 0; x < picturePromises.length; x ++)
+            {
+                picturePromises[x].then(picSuccess,picFail)
+            }
+        
              // Next stage: calculate position and distance:
              
-             //include geolocation promise to get position
-             navigator.geolocation.getCurrentPosition(
-             function(position)
-                 {
-                     for(var i=0; i < toposSet.length ; i++)
+             //include geolocation and age promise to get position 
+             position = Geolocation.position()           
+             for(var i=0; i < toposSet.length ; i++)
                          {
                              toposSet[i].currentLatitude = position.coords.latitude;
                              toposSet[i].currentLongitude = position.coords.longitude;
                              toposSet[i].currentAccuracy = position.coords.accuracy;
                              toposSet[i].distance = distance(toposSet[i].currentLatitude,toposSet[i].currentLongitude, toposSet[i].latitude, toposSet[i].longitude);
                              toposSet[i].distance = Math.round(toposSet[i].distance * 1000) ;
+                             toposSet[i].age = (new Date()).getTime() - (new Date(toposSet[i].updatedAt)).getTime();
                          }
                      
-                     for(i=0;i<toposSet.length;i++) {topos.push(toposSet[i]);}
-                     
-                     topoDefer.resolve(topos);
-                console.log("topoDefer resolved");
-                     isInit = true; // mark as succesfully Init
-                console.log(topos);
-                     
-                 },
-                 function(error)
-             {
-                 console.error(error);
-                 isInit = false; //mark as Init Failed
-             }
-             ); 
              
-                
-                      
-         }); //end of then for get picture
+            //for performance, this check should be done before downloading pictures again
+            for(i=0;i<toposSet.length;i++)
+             {
+                 found=false;
+                 index = -1;
+                 for(j=0;j<topos.length;j++)
+                 {
+                     if (topos[j]._id == toposSet[i]._id)
+                         {
+                             found=true;
+                             index = j;
+                         }
+                 }
+                 if(!found) {topos.push(toposSet[i]);}
+                 else
+                     {
+                         if( (new Date(toposSet[i].updatedAt)).getTime() > (new Date(toposSet[i].updatedAt)).getTime() )
+                             {
+                                 topos[index] = toposSet[i];
+                             }
+                     }
+             }
+                     
+             topoDefer.resolve(topos);
+             console.log("topoDefer resolved");
+             isInit = true; // mark as succesfully Init
+             console.log(topos);       
+            
      //i should manage when data fails... topoDefer.failed
-});
+        }); //end of Boulder request
         return topoDefer.promise;
     }; //end of refresh()
 

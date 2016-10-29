@@ -1,5 +1,5 @@
 angular.module('starter.controllers')
-.controller('ToposCtrl', function($scope, Topos,$ionicLoading,$ionicModal,$ionicPopover) {
+.controller('ToposCtrl', function($scope, Geolocation, Topos,$ionicLoading,$ionicModal,$ionicPopover) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -118,11 +118,13 @@ $scope.orderBySetting = orderByOptions.grade;
     maxWidth: 200,
     showDelay: 0
   });
-  Topos.all().then(
+  console.log("Starting Geolocation Service");
+  Geolocation.init().then( function(evt){
+      console.log("Starting Topo Service");  
+      Topos.all().then(
     function(res){
-        console.log("receiving Topos.all from server");
-        console.log(res);
-      $scope.topos = res;
+       // console.log(res);
+        $scope.topos = res;
         $ionicLoading.hide();
     },
     function(err){
@@ -131,6 +133,8 @@ $scope.orderBySetting = orderByOptions.grade;
         $ionicLoading.hide();
     }
       );
+  }, function(err){ console.log(err);});
+
     
   //$scope.topos = Topos.all();
   $scope.remove = function(topo) {
