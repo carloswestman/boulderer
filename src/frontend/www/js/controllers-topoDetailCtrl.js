@@ -1,5 +1,5 @@
 angular.module('starter.controllers')
-.controller('TopoDetailCtrl', function($scope, $stateParams, Topos,$ionicModal,$ionicPopover) {
+.controller('TopoDetailCtrl', function($scope, $stateParams, Topos,$ionicModal,$ionicPopover,$state,$location,$anchorScroll) {
   
 //      Topos.all().then(
 //    function(res){
@@ -12,7 +12,19 @@ angular.module('starter.controllers')
 //      console.error(err);
 //    }
 //      );
+    
     $scope.topo = Topos.get($stateParams.topoId);
+    
+    $scope.filteredTopos = Topos.getFilteredTopos();
+    $scope.filteredIndex = Topos.getFilteredIndex();
+    // set the location.hash to the id of
+    // the element you wish to scroll to.
+     // $location.hash($scope.topo._id);
+
+      // call $anchorScroll()
+   //   $anchorScroll();
+     //$ionicScrollDelegate.anchorScroll();
+    
     
     //modal popoever code here
     $scope.popoverSelection = "pencil"; //default

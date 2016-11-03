@@ -246,7 +246,58 @@ console.log({"query": query });
             res.end();
             console.log("GET /boulders Response Ended");
         });
-    });
+    })
+// Delete a boulder that matches _id and UserId (accessed at DELETE http://localhost:8080/api/boulders)
+// param: 
+.delete(function(req, res) {
+    console.log("DELETE /boulders");
+    //get URL params
+    var _id = req.param("_id");
+    var ownerId = req.param("ownerId");
+    var query = {};    
+    console.log("param _id: " + _id);
+    console.log("param ownerId: " + ownerId);
+
+    if((typeof _id != 'undefined') && (typeof ownerId != 'undefined') )
+        {
+            query = {"_id": _id , "ownerId": ownerId };    
+            Boulder.findOne(query,function(err, boulder) {
+            console.log("err: " + err);
+                console.log("boulder: " + boulder);
+            if (err)
+                res.status(400).send({
+                                message: 'An error ocurred',
+                                error: err
+                });
+            if (boulder != null)
+                {
+                   boulder.remove(function(){ console.log("boulder removed");});
+                   res.json(boulder);
+            console.log("DELETE /boulders Response Ending");
+            res.end();
+            console.log("DELETE /boulders Response Ended"); 
+                }
+                else
+                    {
+                      console.log("Boulder not found");
+                        res.status(400).send({
+                                message: 'Boulder not found'
+                        });
+            res.end();  
+                    }
+                
+
+            
+        });
+        }
+    else
+        {
+            res.status(400).send({
+                                message: 'Wrong parameters'
+                        });
+        };
+
+});
 
 var server = app.listen(8080, function () {
 

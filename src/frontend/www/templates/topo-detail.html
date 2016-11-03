@@ -4,24 +4,39 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="{{topo.name}}">
+<!--<ion-view view-title="{{topo.name}}">-->
+<ion-view>
+<!--
     <ion-nav-buttons side="secondary">
     <button class="button button-clear" ng-click="openModal()">Zoom</button>
   </ion-nav-buttons>
-  <ion-content class="padding">
-<!--    <img ng-src="{{topo.picture}}" style="width: 70%">-->
-      <div id="container2" style="position:relative;width:70%;height:auto;border: 1px solid red;" ng-click="openModal()">
-    <img   id="TopoDetailImage" ng-src="{{topo.picture}}" style="display: block;opacity:.99;position:relative;top:0;left:0;width:100%;height:100%;">
-<svg id="TopoDetailSvg" imageid="TopoDetailImage" mode=""   style="opacity:.99;position:absolute;top:0;left:0;width:100%;height:100%;border: 1px solid blue;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" detect-gestures> <!-- width="320" height="568" viewBox="0 0 320 568">--> 
-</svg>
+-->
+  <ion-content class="padding" style="background-color:black;" overflow-scroll="true">
+      <div id="{{topo._id}}" class="list card" ng-repeat="topo in filteredTopos">
+          <div class="item">
+        <h2>V{{topo.grade}}{{topo.name | BoulderNameWithComma}}</h2>
+        <p>{{topo.distance | distance}}, {{topo.age | age}}</p>
+        </div>
+        <div class="item item-image">
+            <div id="container2" style="position:relative;width:100%;height:auto;" ng-click="openModal()">
+            <img   id="TopoDetailImage" ng-src="{{topo.picture}}" style="display: block;opacity:.99;position:relative;top:0;left:0;width:100%;height:100%;">
+            <svg id="TopoDetailSvg" imageid="TopoDetailImage" mode=""   style="opacity:.99;position:absolute;top:0;left:0;width:100%;height:100%;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" detect-gestures> <!-- width="320" height="568" viewBox="0 0 320 568">--> 
+            </svg>
+            </div>
+        </div>
+          <a class="item item-icon-left" href="/map">
+    <i class="icon ion-ios-location"></i>
+    See it in the Map
+  </a>
+   <div class="item item-icon-left">
+    <i class="icon ion-person"></i>
+    {{topo.ownerName}}
+  </div>
+<!--
+  <div class="item">
+    <b>Owner:</b> {{topo.ownerName}}
+  </div>
+-->
 </div>
-      <ion-list>
-          <ion-item><b>Name:</b> {{topo.name}}</ion-item>
-          <ion-item><b>Grade:</b> V{{topo.grade}}</ion-item>
-          <ion-item><b>Distance:</b> {{topo.distance | distance}}</ion-item>
-          <ion-item><b>Owner:</b> {{topo.ownerName}}</ion-item>
-          <ion-item><b>Created At:</b> {{topo.createdAt}}</ion-item>
-      </ion-list>
-
   </ion-content>
 </ion-view>

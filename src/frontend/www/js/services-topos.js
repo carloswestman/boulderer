@@ -1,6 +1,13 @@
 angular.module('starter.services')
 .factory('Topos', function($http,$q, Geolocation) {
 
+    var filteredTopos = [];
+    var filteredIndex;
+    setFilteredTopos = function(ft) { filteredTopos = ft;};
+    getFilteredTopos = function() { return filteredTopos;};
+    setFilteredIndex = function(index) { filteredIndex = index;};
+    getFilteredIndex = function() { return filteredIndex;};
+    
     function distance(lon1, lat1, lon2, lat2) {
   var R = 6371; // Radius of the earth in km
   var dLat = (lat2-lat1).toRad();  // Javascript functions in radians
@@ -140,21 +147,51 @@ var newestBoulderDate = new Date(0); // 1970
              console.log(topos);       
             
      //i should manage when data fails... topoDefer.failed
-        }); //end of Boulder request
+        }, function errorCallback(response) {
+            console.error(response); // handle no http response here
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+  }); //end of Boulder request
         return topoDefer.promise;
     }; //end of refresh()
 
+remove = function(topo, user) {
+      
+    var removeDefer = $q.defer();  
+    $http.delete("http://carloswestman.com:8080/api/boulders?_id=" + topo._id + "&ownerId=" + user.userID).then(
+    function successCallback(response) {
+    // this callback will be called asynchronously
+    // when the response is available
+        topos.splice(topos.indexOf(topo), 1);
+        console.log("Topo deleted");
+        removeDefer.resolve( { status: 200, message: "OK"});
+      
+                
 
+        
+        //still need to delete image too...!!!!
+  }, function errorCallback(error) {
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+      removeDefer.resolve( { status: error.status, message: "Sorry, you can't remove that Boudler now"});
+      console.error(error);
+  });
+        
+    
+   return removeDefer.promise;   
+    }
 
   return {
 
+    getFilteredTopos: getFilteredTopos,
+    setFilteredTopos: setFilteredTopos,
+    getFilteredIndex: getFilteredIndex,
+    setFilteredIndex: setFilteredIndex,  
     all: function() {return refresh();},
     isInit: function () { return isInit;} ,
     newestBoulderDate: function () { return newestBoulderDate;},
     topos: function() { return topos;} ,
-//    remove: function(topo) {
-//      topos.splice(topos.indexOf(topo), 1);
-//    },
+    remove: remove,
     get: function(topoId) {
       for (var i = 0; i < topos.length; i++) {
         if (topos[i]._id == topoId) { //= parseInt(topoId)) {

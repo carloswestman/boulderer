@@ -1,5 +1,5 @@
 angular.module('starter.controllers')
-.controller('ToposCtrl', function($scope, Geolocation, Topos,$ionicLoading,$ionicModal,$ionicPopover) {
+.controller('ToposCtrl', function($scope, UserService, Geolocation, Topos,$ionicLoading,$ionicModal,$ionicPopover,$ionicPopup, $state) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -11,28 +11,51 @@ angular.module('starter.controllers')
    //tabToposModalSearchOptions() 
    //modal-topo-search-filter.html
   //modal code here
-orderByOptions = {};
-    orderByOptions.grade = ['grade','distance','opener'];
-    orderByOptions.stars = ['grade','distance'];
-    orderByOptions.age = ['grade','distance'];
-    orderByOptions.distance = ['distance','grade','opener'];
-    orderByOptions.opener = ['opener','grade','distance'];
-$scope.orderByOptions = orderByOptions;
-$scope.orderBySetting = orderByOptions.grade;
-
-    var Defaultsettings = new Object;
-    var settings = new Object;
-    Defaultsettings.searchGradeMin = 0;
-    Defaultsettings.searchGradeMax = 16;
-    Defaultsettings.searchMinStars = 0;
-    Defaultsettings.searchMaxDistance = 100000;
-    Defaultsettings.searchOrderBy = "Grade";
-    $scope.settings = Defaultsettings;
     
-    $scope.resetSettings = function()
+    
+    
+    $scope.filteredTopos = [];
+    $scope.goToState = function (filteredTopos, topoId, index) 
     {
-     $scope.settings = Defaultsettings;   
+        Topos.setFilteredTopos(filteredTopos);
+        Topos.setFilteredIndex(index);
+         $state.go('tab.topo-detail', {topoId: topoId});
     };
+    
+    orderByOptions = [];
+    orderByOptions.push( { "name": "grade", "order":['-grade','-distance']} );
+    orderByOptions.push( { "name": "age", "order":['-age']} );
+    orderByOptions.push( { "name": "distance", "order":['-distance','-grade']} );
+    //orderByOptions.distance = ['distance','grade'];
+    $scope.orderByOptions = orderByOptions;
+    //$scope.orderBySetting = orderByOptions.grade;
+    
+    ageOptions = [];
+    ageOptions.push( { "name": "1 day", "value": 86400000} );
+    ageOptions.push( { "name": "10 days", "value":(86400000 * 15)} );
+    ageOptions.push( { "name": "60 days", "value":(86400000 * 60)} );
+    ageOptions.push( { "name": "90 days", "value":(86400000 * 90)} );
+    ageOptions.push( { "name": "infinitum", "value":(86400000 * 5)} );
+    
+    $scope.ageOptions = ageOptions;
+    
+
+    $scope.settings = {};
+    $scope.Defaultsettings = {};
+    
+    
+    $scope.Defaultsettings.searchGradeMin = 0;
+    $scope.Defaultsettings.searchGradeMax = 16;
+    $scope.Defaultsettings.searchMinStars = 0;
+    $scope.Defaultsettings.searchMaxDistance = 20000;
+    $scope.Defaultsettings.searchOrderBy = "Grade";
+    
+    $scope.settings = $scope.Defaultsettings;
+    
+//    $scope.resetSettings = function()
+//    {
+//     $scope.settings = $scope.Defaultsettings;   
+//    };
     
     $scope.search = function(item){
     if (
@@ -45,45 +68,7 @@ $scope.orderBySetting = orderByOptions.grade;
         }
     
     return false;
- };
-    
-       $ionicModal.fromTemplateUrl('templates/modal-topo-search-filter.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-   }).then(function(modal) {
-      $scope.ToposModalSearchOptions = modal;
-       console.log("ToposModalSearchOptions registered");
-           
-//           var SVGitem= modal.$el.find('modalTopoSvg'); //document.getElementById('modalTopoSvg');
-//                var SVGdata = $scope.topo.svgData;  // A string
-//           SVGitem.innerHTML = SVGdata;
-//           console.log(SVGitem);
-   });
-	
-   $scope.openToposModalSearchOptions = function() {
-      $scope.ToposModalSearchOptions.show();
-   };
-	
-   $scope.closeToposModalSearchOptions = function() {
-      $scope.ToposModalSearchOptions.hide();
-   };
-	
-   //Cleanup the modal when we're done with it!
-   $scope.$on('$destroy', function() {
-      $scope.ToposModalSearchOptions.remove();
-   });
-	
-   // Execute action on hide modal
-   $scope.$on('ToposModalSearchOptions.hidden', function() {
-      // Execute action
-   });
-	
-   // Execute action on remove modal
-   $scope.$on('ToposModalSearchOptions.removed', function() {
-      // Execute action
-   });
-    
-    
+    };
     
     $scope.doRefresh = function (refresher) {
     
@@ -138,8 +123,21 @@ $scope.orderBySetting = orderByOptions.grade;
     
   //$scope.topos = Topos.all();
   $scope.remove = function(topo) {
-  //Topos.remove(topo);
-      console.log("should remove topo here");
+  user = UserService.getUser();
+  Topos.remove(topo, user).then(
+      function(response)
+      {
+                if ( response.status != 200)
+          {
+             var alertPopup = $ionicPopup.alert({
+            title: 'Opps ',
+            template: response.message
+            }); 
+          }
+      }
+  );
+
+      
   };
   $scope.addTopo = function (Topos){
         console.log("should add topo here?");

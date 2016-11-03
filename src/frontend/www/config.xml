@@ -6,7 +6,7 @@
         versionCode = "1">
   <name>Boulderer</name>
   <description>
-        Migrating to Facebook native login, because InAppBrower plugin doesnt work in Cordova
+        A boudering social app
     </description>
   <author email="carloswestman@gmail.com" href="http://example.com.com/">
       Carlos Westman
