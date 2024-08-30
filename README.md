@@ -54,9 +54,9 @@ When you are in the climbing gym, there are too many boulders, and they are usua
 <img src="./assets/B new boulder HM 3.jpg" width="25%" border="4">
 </div>
 
-##API
+## API
 
-A RESTful API is implemented:
+A RESTful API is available:
 
 <table>
 <tr>
