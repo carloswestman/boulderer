@@ -1,4 +1,5 @@
 <img src="./assets/logo.png" align="right" style="float:right" />
+
 # Boulderer 
 >Hybrid mobile application for sharing boulder problems within the climbing community 
 
@@ -24,7 +25,7 @@ I started Boulderer with two goals in mind, one social and the other one persona
 
 Features are focused on essential functionality to make the application useful while keeping it simple. Current support with examples:
 
-###Discover boulders in the outdoors
+### Discover boulders in the outdoors
 
 The easiest way to search for boulders is in the Map tab.
 Double-tap markers to open the boulder.
@@ -35,7 +36,7 @@ Double-tap markers to open the boulder.
 <img src="./assets/B general boulder.jpg" width="25%" border="4">
 </div>
 
-###Discover Boulder Problems in climbing gym:
+### Discover Boulder Problems in climbing gym:
 When you are in the climbing gym, there are too many boulders, and they are usually in the same place so the map won't be useful. The easiest way to browse through boulders is in the Boulder Tab. You can setup filters to only view the boulders you are interested in.
 
 <div align="center">	
@@ -51,7 +52,7 @@ To identify yourself on a social network you need first to sign in with your Fac
 </div>
 
 
-###Create your own boulders and share them:
+### Create your own boulders and share them:
  You can create your own boulder problems with your phone camera and share them with the community. Just take a picture, tap on the holds, and share.
 
 <div align="center">	
@@ -144,7 +145,7 @@ Parameters<br>
 <td>
 
 * <b>fromDate (optional):</b> String in ISO Date format. Retrieves boulders updated more recently than fromDate
-* <b>longitude (optional):</b> Geoposition longitude coordenate. When used together with latitude and radius parameters, it retrieves boulders contained in a box of +/+ radius meters arround the specified coordinates
+* <b>longitude (optional):</b> Geoposition longitude coordenate. When used together with latitude and radius parameters, it retrieves boulders contained in a box of +/+ radius meters around the specified coordinates
 * <b>latitude (optional):</b> Geoposition longitude coordenate
 * <b>radius (optional):</b> radius from position specified in meters
 </td>
@@ -160,7 +161,24 @@ Response
 A successful response will generate a 200 http status. If an error ocurs, an http error status code will be generated.<br>
 Successful response Example:<br>
 <pre style="json">
-[  {    "_id": "5805a71ea10ff6e414d37bdf",    "updatedAt": "2016-10-18T04:37:49.830Z",    "createdAt": "2016-10-18T04:37:49.830Z",    "grade": 6,    "accuracy": 1979,    "latitude": 49.73310552199455,    "longitude": -123.1416806450711,    "pictureNaturalHeight": 4032,    "pictureNaturalWidth": 3024,    "pictureId": "5805a71ca10ff6e414d77bdc",    "svgData": `"<circle id=\"0\" cx=\"60\" cy=\"376\" r=\"17\" style=\"stroke: rgb(255, 0, 0); stroke-width: 2px; fill: rgba(0, 0, 0, 0);\">"`,    "svgViewPortHeight": 427,    "svgViewPortWidth": 320,    "ownerId": "carloswestman",    "name": "Half Moon",    "__v": 0  }]
+[  {
+    "_id": "5805a71ea10ff6e414d37bdf",
+    "updatedAt": "2016-10-18T04:37:49.830Z",
+    "createdAt": "2016-10-18T04:37:49.830Z",
+    "grade": 6,
+    "accuracy": 1979,
+    "latitude": 49.73310552199455,
+    "longitude": -123.1416806450711,
+    "pictureNaturalHeight": 4032,
+    "pictureNaturalWidth": 3024,
+    "pictureId": "5805a71ca10ff6e414d77bdc",
+    "svgData": `"<circle id=\"0\" cx=\"60\" cy=\"376\" r=\"17\" style=\"stroke: rgb(255, 0, 0); stroke-width: 2px; fill: rgba(0, 0, 0, 0);\">"`,
+    "svgViewPortHeight": 427,
+    "svgViewPortWidth": 320,
+    "ownerId": "carloswestman",
+    "name": "Half Moon",
+    "__v": 0
+  }]
 </pre>
 </td>
 </tr>
