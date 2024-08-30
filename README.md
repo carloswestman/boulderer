@@ -45,13 +45,6 @@ When you are in the climbing gym, there are too many boulders, and they are usua
 <img src="./assets/paper tree detail.jpg" width="25%" border="4">
 </div>
 
-### Social Networking
-To identify yourself on a social network you need first to sign in with your Facebook user.
-<div align="center">	
-<img src="./assets/auth.jpg" width="25%" border="4">
-</div>
-
-
 ### Create your own boulders and share them:
  You can create your own boulder problems with your phone camera and share them with the community. Just take a picture, tap on the holds, and share.
 
@@ -61,49 +54,9 @@ To identify yourself on a social network you need first to sign in with your Fac
 <img src="./assets/B new boulder HM 3.jpg" width="25%" border="4">
 </div>
 
-## Roadmap
-
-There is so much work to do, but it's exciting. Here there is a list with some of the roadmap activities:
-
-1. Create the GitHub repository with a MVP version *[DONE]*
-2. Continuous Software Development *[Check the issue list for details]*
-4. Business Model to maintain the service
-5. Marketing strategy
-4. Improve UX *[Designers needed]*
-4. Develop the product Branding *[Designers needed]*
-4. Distribute in the stores.
-
-
-## Architecture
-
-The architecture stack relies heavily on <b>JavaScript</b>. and lightweight frameworks aimed to develop scalable web solutions. I think performance of the backend is pretty solid. I am still wondering if I should follow a native approach for the frontends:
-
-<table>
-  <tr>
-   <td>Back-end @AWS</td>
-   <td>Web API: <b>NodeJS</b></td>
-  </tr>
-  <tr>
-   <td></td>
-   <td>Document storage: <b>MongoDB</b></td>
-  </tr>
-   <tr>
-   <td></td>
-   <td>Data Model: <b>Express</b></td>
-  </tr>
-  <tr>
-    <td>Front-End @PhoneGap</td>
-    <td>Framework: <b>AngularJS</b></td> 
-  </tr>
-    <tr>
-    <td></td>
-    <td>UX components: <b>Ionic</b></td> 
-  </tr>
-</table>
-
 ##API
 
-A RESTful API has been implemented. At the moment there is not support for DELETE or UPDATE actions:
+A RESTful API is implemented:
 
 <table>
 <tr>
@@ -158,6 +111,7 @@ Parameters<br>
 Response
 </td>
 <td>
+	
 A successful response will generate a 200 http status. If an error ocurs, an http error status code will be generated.<br>
 Successful response Example:<br>
 <pre style="json">
